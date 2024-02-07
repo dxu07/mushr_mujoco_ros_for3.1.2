@@ -103,25 +103,24 @@ generate_messages(
 # )
 
 set(USE_GL 1) #USE_GL if we are to use GL with mujoco
-
 if(NOT DEFINED $ENV{MUJOCO_LOCATION})
-	set(MUJOCO_LOCATION $ENV{HOME}/.mujoco/mujoco200_linux)
+	set(MUJOCO_LOCATION $ENV{HOME}/.mujoco/mujoco-3.1.2)
 else()
-	set(MUJOCO_LOCATION $ENV{MUJOCO_LCOATION})
+	set(MUJOCO_LOCATION $ENV{MUJOCO_LOCATION})
 endif()
 
 message(STATUS ${MUJOCO_LOCATION})
 
 set(MUJOCO_INCLUDE_DIR ${MUJOCO_LOCATION}/include)
-set(MUJOCO_BIN ${MUJOCO_LOCATION}/bin)
+set(MUJOCO_LIB ${MUJOCO_LOCATION}/lib)
 
-link_directories(${MUJOCO_BIN})
+link_directories(${MUJOCO_LIB})
 
 #Finding main mujoco library
 if(${USE_GL})
-file(GLOB LIB_MUJOCO ${MUJOCO_BIN}/libmujoco[0-9][0-9][0-9].so)
+file(GLOB LIB_MUJOCO ${MUJOCO_LIB}/libmujoco.so)
 else()
-file(GLOB LIB_MUJOCO ${MUJOCO_BIN}/libmujoco[0-9][0-9][0-9]nogl.so)
+file(GLOB LIB_MUJOCO ${MUJOCO_LIB}/libmujoco[0-9][0-9][0-9]nogl.so)
 endif()
 #Showing mujoco library found
 message(STATUS "MuJoCo lib found at: " ${LIB_MUJOCO})
@@ -203,8 +202,8 @@ target_link_libraries(${PROJECT_NAME}_node
   GL
   GLU
   glut
-  libglew.so
-  libglfw.so
+  GLEW
+  glfw
 )
 
 #############

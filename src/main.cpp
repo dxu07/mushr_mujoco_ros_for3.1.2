@@ -174,7 +174,7 @@ int main(int argc, char** argv)
 
     // free MuJoCo model and data, deactivate
     mjglobal::delete_model_and_data();
-    mj_deactivate();
+    // mj_deactivate();
 
     viz::destroy();
 
